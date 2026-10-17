@@ -1,0 +1,57 @@
+[project]
+name = "multi-stage-data-processing-pipeline"
+version = "0.1.0"
+description = "Text pipeline that cleans raw text, analyzes its sentiment (simulated) and stores the result in PostgreSQL."
+authors = [
+    {name = "iToussaint",email = "iradukundatoussaint01@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "psycopg[binary]>=3.2",
+]
+
+[tool.poetry]
+packages = [{include = "multi_stage_data_processing_pipeline", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "B", "UP", "D", "SIM"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["testcontainers.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests that need Docker (testcontainers)",
+]
+
+[tool.coverage.run]
+source = ["multi_stage_data_processing_pipeline"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90
