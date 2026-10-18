@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug unit tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-m", "not integration", "-x"],
+      "justMyCode": true
+    },
+    {
+      "name": "Debug integration tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-m", "integration", "-x"],
+      "justMyCode": true
+    },
+    {
+      "name": "Run pipeline",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "multi_stage_data_processing_pipeline",
+      "args": ["I love this product, it's amazing!", "--debug"],
+      "env": {
+        "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/postgres"
+      }
+    }
+  ]
+}
